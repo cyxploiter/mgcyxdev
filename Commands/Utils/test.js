@@ -3,11 +3,11 @@ const Discord = require("discord.js");
 module.exports = {
     name: "test",
     usage: [""],
-    enabled: true,
+    enabled: false,
     aliases: [],
     category: "Utils",
     memberPermissions: [],
-    botPermissions: [ "SEND_MESSAGES", "EMBED_LINKS" ],
+    botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
     //Settings for command
     nsfw: false,
     ownerOnly: false,
@@ -20,15 +20,15 @@ module.exports = {
      */
 
     // Execute contains content for the command
-    async execute(client, message, args, data){
-        try{
+    async execute(client, message, args, data) {
+        try {
             let textChans = await message.guild.channels.cache.filter(channel => channel.type == 'GUILD_TEXT').size;
             let voiceChans = await message.guild.channels.cache.filter(channel => channel.type == 'GUILD_VOICE').size;
 
             let catCount = message.guild.channels.cache.filter(channel => channel.type == 'GUILD_CATEGORY');
 
             console.log(textChans, voiceChans, catCount)
-        }catch(err){
+        } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
             console.log(err)
             return client.embed.send(message, {
