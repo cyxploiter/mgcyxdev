@@ -1,0 +1,1 @@
+worker: pm2-runtime start ecosystem.config.js --env production --secret 9whcuvnskfruusb --public r89tt6czgsn6sv6

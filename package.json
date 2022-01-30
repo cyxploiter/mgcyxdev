@@ -1,0 +1,29 @@
+{
+  "name": "cyx-dev",
+  "version": "2.0.0",
+  "description": "",
+  "main": "cyx.js",
+  "engines": {
+    "node": "16.x",
+    "npm": "7.x"
+  },
+  "scripts": {
+    "preinstall": "npm install pm2 -g",
+    "dev": "pm2 start cyx.js --watch"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "canvas": "^2.8.0",
+    "chalk": "^4.1.1",
+    "chart.js": "^2.9.4",
+    "chartjs-node-canvas": "^3.2.0",
+    "discord.js": "^13.1.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.12",
+    "node-fetch": "^2.6.7",
+    "nodemon": "^2.0.15",
+    "random-puppy": "^1.1.0"
+  },
+  "author": "Cyx#1337"
+}
