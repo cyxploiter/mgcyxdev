@@ -1,4 +1,11 @@
 // Importing modules
+const {
+    glob
+} = require("glob");
+const {
+    promisify
+} = require("util");
+const globPromise = promisify(glob);
 const Discord = require('discord.js'),
     fs = require('fs'),
     mongoose = require('mongoose'),
@@ -9,6 +16,8 @@ const Discord = require('discord.js'),
         intents: 32767,
         partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
     });
+
+module.exports = client;
 // Adding to the client
 client.event = new Discord.Collection();
 client.commands = new Discord.Collection();
@@ -18,17 +27,19 @@ client.tools = require('./Tools/Tools.js');
 client.logger = require('./Tools/Logger.js');
 client.embed = require('./Tools/Embed.js');
 
-    
+
 
 async function init() {
     // Load Discordjs Events
-    const eventFiles = fs.readdirSync('./Events/').filter(file => file.endsWith('.js'));
-    for (const file of eventFiles) {
-        const event = require(`./Events/${file}`);
-        const eventName = file.split(".")[0];
-        console.log(`Loading... ${eventName}`)
-        client.on(eventName, event.bind(null, client));
-    }
+    // const eventFiles = fs.readdirSync('./Events/').filter(file => file.endsWith('.js'));
+    // for (const file of eventFiles) {
+    //     const event = require(`./Events/${file}`);
+    //     const eventName = file.split(".")[0];
+    //     console.log(`Loading... ${eventName}`)
+    //     client.on(eventName, event.bind(null, client));
+    // }
+    const eventFiles = await globPromise(`${process.cwd()}/Events/*.js`);
+    eventFiles.map((value) => require(value));
 
     //Load the commands
     let folders = await readdir("./Commands/");

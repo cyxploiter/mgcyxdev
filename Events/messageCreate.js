@@ -1,9 +1,11 @@
+const client = require("../cyx");
+
 const config = require("../config.json"),
     cmdCooldown = {};
 
 
 
-module.exports = async (client, message) => {
+client.on("messageCreate", async (message) => {
     try {
         if (message.author.bot) return; // Return if author is bot
         if (!message.guild) return; // Return if dms or group chat
@@ -107,4 +109,4 @@ module.exports = async (client, message) => {
         console.error(err);
     }
 
-};
+});

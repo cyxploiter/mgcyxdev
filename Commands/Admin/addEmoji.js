@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports = {
     name: "steal",
-    usage: ["Adds a specified emoji to the server", "```{prefix}steal <emoji>```"],
+    usage: ["Adds a specified emoji to the server", "```{prefix}steal <emote>```or```{prefix}steal link <emoteUrl>```"],
     enabled: true,
     aliases: [],
     category: "Admin",
@@ -22,6 +22,13 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
+            if (args[0].includes("link")) {
+                if (!args[1]) return client.embed.usage(message, data);
+                const url = args[1];
+                return message.guild.emojis.create(url, `dys_${args[2]}`).then((emote) => message.reply(`Added emote with name \`${emote.name}\``)).catch((err) => {
+                    return message.reply(`bruh u need to provide an image link`)
+                })
+            }
             const hasEmoteRegex = /<a?:.+:\d+>/gm
             if (!message.content.match(hasEmoteRegex)) return client.embed.usage(message, data);
             const emoteRegex = /<:.+:(\d+)>/gm
@@ -32,15 +39,13 @@ module.exports = {
                 const emoteName = (() => {
                     return emoteNameRegex.exec(emoji[0])[2]
                 })();
-                console.log(emoteName)
-                message.guild.emojis.create(url, `dys_${emoteName}`)
+                message.guild.emojis.create(url, `dys_${emoteName}`).then((emote) => message.reply(`Added emote with name \`${emote.name}\``));
             } else if (emoji = animatedEmoteRegex.exec(message)) {
                 const url = "https://cdn.discordapp.com/emojis/" + emoji[1] + ".gif"
                 const emoteName = (() => {
                     return emoteNameRegex.exec(emoji[0])[2]
                 })();
-                console.log(emoteName)
-                message.guild.emojis.create(url, `adys_${emoteName}`)
+                message.guild.emojis.create(url, `adys_${emoteName}`).then((emote) => message.reply(`Added emote with name \`${emote.name}\``));
             }
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
