@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const DB = require("../../Database/Schema/ReactionRoles")
 module.exports = {
     name: "rmreactrole",
-    usage: ["Add reverse reaction role to a message", "```{prefix}rmrr <messageId> <role>```"],
+    usage: ["Remove reaction role from a message", "```{prefix}rmrr <messageId> <role>```"],
     enabled: true,
     aliases: ["rmrr"],
     category: "Admin",
