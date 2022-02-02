@@ -38,7 +38,7 @@ async function init() {
     //     console.log(`Loading... ${eventName}`)
     //     client.on(eventName, event.bind(null, client));
     // }
-    const eventFiles = await globPromise(`${process.cwd()}/Events/*.js`);
+    const eventFiles = await globPromise(`${process.cwd()}/Events/*/*.js`);
     eventFiles.map((value) => require(value));
 
     //Load the commands

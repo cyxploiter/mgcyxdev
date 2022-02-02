@@ -1,4 +1,4 @@
-const client = require("../cyx")
+const client = require("../../cyx")
 
 
 

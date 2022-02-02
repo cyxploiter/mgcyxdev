@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports = {
     name: "test",
     usage: [""],
-    enabled: false,
+    enabled: true,
     aliases: [],
     category: "Utils",
     memberPermissions: [],
@@ -22,12 +22,11 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
-            let textChans = await message.guild.channels.cache.filter(channel => channel.type == 'GUILD_TEXT').size;
-            let voiceChans = await message.guild.channels.cache.filter(channel => channel.type == 'GUILD_VOICE').size;
-
-            let catCount = message.guild.channels.cache.filter(channel => channel.type == 'GUILD_CATEGORY');
-
-            console.log(textChans, voiceChans, catCount)
+            const fetchedMessage = await message.channel.messages.fetch(args[0])
+            const filterBy = "931289932989886494";
+            const reactions = await fetchedMessage.reactions.cache.filter(r => r.toJSON);
+            console.log(reactions)
+            fetchedMessage.reactions.resolve(filterBy).remove(filterBy)
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
             console.log(err)

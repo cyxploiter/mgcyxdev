@@ -1,6 +1,6 @@
-const client = require("../cyx");
+const client = require("../../cyx");
 
-const config = require("../config.json"),
+const config = require("../../config.json"),
     cmdCooldown = {};
 
 
