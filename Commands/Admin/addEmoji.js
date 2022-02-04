@@ -6,7 +6,7 @@ module.exports = {
     enabled: true,
     aliases: [],
     category: "Admin",
-    memberPermissions: ["ADMINISTRATOR"],
+    memberPermissions: ["MANAGE_EMOJIS_AND_STICKERS"],
     botPermissions: ["MANAGE_EMOJIS_AND_STICKERS"],
     //Settings for command
     nsfw: false,
