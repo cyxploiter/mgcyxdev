@@ -3,6 +3,7 @@ module.exports = {
     name: "github",
     usage: ["Get basic information about a github repo```{prefix}github <username> <repo name>```"],
     enabled: true,
+    hidden: false,
     aliases: [],
     category: "General",
     memberPermissions: [],

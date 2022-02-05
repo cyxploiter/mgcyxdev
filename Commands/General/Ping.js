@@ -2,25 +2,26 @@ module.exports = {
     name: "ping",
     usage: ["Get the current ping of the bot```{prefix}ping```"],
     enabled: true,
+    hidden: false,
     aliases: [],
     category: "General",
     memberPermissions: [],
-    botPermissions: [ "SEND_MESSAGES", "EMBED_LINKS" ],
+    botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
     //Settings for command
     nsfw: false,
     ownerOnly: false,
     cooldown: 5000,
 
     // Execute contains content for the command
-    async execute(client, message, args, data){
-        try{
+    async execute(client, message, args, data) {
+        try {
 
             message.channel.send(`Pinging...`).then(async (m) => {
-                let latencyPing = Math.floor( m.createdTimestamp - message.createdTimestamp)
+                let latencyPing = Math.floor(m.createdTimestamp - message.createdTimestamp)
                 m.edit(`My Latency: \`${latencyPing}ms\`\nAPI Latency: \`${client.ws.ping}ms\``);
             });
 
-        }catch(err){
+        } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
             console.log(err)
             return client.embed.send(message, {

@@ -4,6 +4,7 @@ module.exports = {
     name: "test",
     usage: [""],
     enabled: true,
+    hidden: true,
     aliases: [],
     category: "Utils",
     memberPermissions: [],

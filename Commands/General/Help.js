@@ -1,7 +1,12 @@
+const Discord = require("discord.js")
+const {
+    readdirSync
+} = require("fs");
 module.exports = {
     name: "help",
     usage: ["Get a list of the currently available commands ```{prefix}help```", "Get information about a specific command```{prefix}help <command>```"],
     enabled: true,
+    hidden: false,
     aliases: [],
     category: "General",
     memberPermissions: [],
@@ -10,7 +15,11 @@ module.exports = {
     nsfw: false,
     ownerOnly: false,
     cooldown: 0,
-
+    /**
+     * @param {Discord.Client} client
+     * @param {Discord.Message} message
+     * @param {String[]} args
+     */
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
@@ -21,7 +30,7 @@ module.exports = {
                     color: 'WHITE',
                     title: `${cmd.name.charAt(0).toUpperCase() + cmd.name.slice(1)} Command`,
                     author: {
-                        name: `cyx's Help Menu`,
+                        name: `${cmd.name}'s Help Menu`,
                         icon_url: `${message.client.user.displayAvatarURL()}`,
                         url: "",
                     },
@@ -40,28 +49,51 @@ module.exports = {
                     ]
                 });
             }
-            let categories = await client.commands.map(x => x.category).filter(function (item, pos, self) {
+            const ignoredCategories = (() => {
+                if (!message.member.permissions.has("ADMINISTRATOR")) {
+                    const ignoredCategories = (() => {
+                        if (!message.member.roles.cache.has("902196590540894259")) {
+                            const ignoredCategories = ["Admin", "Moderation"]
+                        } else {
+                            return ["Admin"]
+                        }
+                    })();
+                    return ignoredCategories;
+                } else {
+                    return ['Developer']
+                }
+            })();
+            let categories = await client.commands.map(x => x.category).filter((item, pos, self) => {
+                if (ignoredCategories.includes(item)) return;
+                if (!item) return;
                 return self.indexOf(item) == pos;
             });
             let cmdArr = []
             for (let i = 0; i < categories.length; i++) {
                 let category = categories[i];
-                let commands = await client.commands.filter(x => x.category === category).map(x => x.name);
-                let cmdText = commands.length < 1 ? "None" : commands.join(" ");
+                let commands = client.commands.filter(x => {
+                    if (x.hidden) return;
+                    return x.category === category
+                }).map(x => {
+                    return `\`${x.name}\``
+                });
+                let cmdText = commands.length === 0 ? "||Hidden||" : commands.join(" ");
                 let obj = {
                     name: category,
-                    value: `\`\`\`${cmdText}\`\`\``
+                    value: `${cmdText}`
                 }
                 cmdArr.push(obj);
             }
-            console.log(cmdArr)
+
+
             return client.embed.send(message, {
                 author: {
                     name: `Help list`,
                     icon_url: message.client.user.displayAvatarURL()
                 },
                 description: `Type \`${data.guild.prefix}help [command]\` for more help. For example, \`${data.guild.prefix}help avatar\``,
-                fields: cmdArr
+                fields: cmdArr,
+                footer: `Command named **Hidden** is hidden from the users and hence can't be used.`
             })
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)

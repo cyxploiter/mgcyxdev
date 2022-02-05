@@ -4,6 +4,7 @@ module.exports = {
     name: "addreactrole",
     usage: ["Add reaction role to a message", "```{prefix}arr <messageId> <emote> <role>```"],
     enabled: true,
+    hidden: false,
     aliases: ["arr"],
     category: "Admin",
     memberPermissions: ["ADMINISTRATOR"],

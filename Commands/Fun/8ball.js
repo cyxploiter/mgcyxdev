@@ -2,6 +2,7 @@ module.exports = {
     name: "8ball",
     usage: ["Let the 8ball answer your question```{prefix}8ball <question>```"],
     enabled: true,
+    hidden: false,
     aliases: ["eightball"],
     category: "Fun",
     memberPermissions: [],

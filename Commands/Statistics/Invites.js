@@ -36,6 +36,7 @@ module.exports = {
     name: "invites",
     usage: ["See the dates at which the most amount of users have joined your server```{prefix}invites <days>```"],
     enabled: true,
+    hidden: false,
     aliases: [],
     category: "Statistics",
     memberPermissions: ["ADMINISTRATOR"],
@@ -50,7 +51,7 @@ module.exports = {
         try {
 
 
-            let days = isNaN(Number(args[0])) ? 30 : Number(args[0]);
+            let days = isNaN(Number(args[0])) ? Number(args[0]) : 30;
             let times = await fetchTimes(message.guild, days);
 
             if (times === false) return message.channel.send("No members have joined your server within this time frame")

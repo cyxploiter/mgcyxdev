@@ -7,6 +7,7 @@ module.exports = {
     name: "serverinfo",
     usage: ["Get information about the current server```{prefix}serverinfo```"],
     enabled: true,
+    hidden: false,
     aliases: [],
     category: "General",
     memberPermissions: [],

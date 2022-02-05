@@ -2,6 +2,7 @@ module.exports = {
     name: "avatar",
     usage: ["Get a users avatar```{prefix}avatar <@user>```"],
     enabled: true,
+    hidden: false,
     aliases: ["av"],
     category: "General",
     memberPermissions: [],
@@ -28,7 +29,7 @@ module.exports = {
                 dynamic: true
             });
             const extension = avatar.includes("a_") ? 'GIF' : 'PNG';
-            
+
             extension.includes("GIF") ? client.embed.send(message, {
                 title: `Avatar of ${user.username}`,
                 fields: [{

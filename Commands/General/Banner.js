@@ -7,6 +7,7 @@ module.exports = {
     name: "banner",
     usage: ["Get a users banner```{prefix}banner <@user>```"],
     enabled: true,
+    hidden: false,
     aliases: ["ba"],
     category: "General",
     memberPermissions: [],

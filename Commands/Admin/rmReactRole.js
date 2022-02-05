@@ -4,6 +4,7 @@ module.exports = {
     name: "rmreactrole",
     usage: ["Remove reaction role from a message", "```{prefix}rmrr <messageId> <role>```"],
     enabled: true,
+    hidden: false,
     aliases: ["rmrr"],
     category: "Admin",
     memberPermissions: ["ADMINISTRATOR"],

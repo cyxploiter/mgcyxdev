@@ -43,6 +43,13 @@ client.on("messageCreate", async (message) => {
             return; //Error message
         }
 
+        //If command isnt enabled
+        if (!cmd.enabled) {
+            return message.reply({
+                content: `I am sorry but command \`${cmd.name}\` is currently disabled by Cyx#1337`
+            });
+        }
+
         //If command is owner only and author isn't owner return
         if (cmd.ownerOnly && message.author.id !== config.ownerId) {
             return;

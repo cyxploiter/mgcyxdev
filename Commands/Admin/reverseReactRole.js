@@ -4,6 +4,7 @@ module.exports = {
     name: "revreactrole",
     usage: ["Add reverse reaction role to a message", "```{prefix}revrr <messageId> <emote> <role>```"],
     enabled: true,
+    hidden: false,
     aliases: ["revrr"],
     category: "Admin",
     memberPermissions: ["ADMINISTRATOR"],

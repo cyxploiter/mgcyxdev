@@ -5,6 +5,7 @@ module.exports = {
     name: "userinfo",
     usage: ["Get information about your profile```{prefix}userinfo```"],
     enabled: true,
+    hidden: false,
     aliases: ["ui"],
     category: "General",
     memberPermissions: [],

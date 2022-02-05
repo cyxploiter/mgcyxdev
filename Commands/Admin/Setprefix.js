@@ -2,6 +2,7 @@ module.exports = {
     name: "setprefix",
     usage: ["Set the prefix for your server```{prefix}setprefix <prefix>```"],
     enabled: true,
+    hidden: false,
     aliases: ["prefix"],
     category: "Admin",
     memberPermissions: ["ADMINISTRATOR"],

@@ -4,6 +4,7 @@ module.exports = {
     name: "steal",
     usage: ["Adds a specified emoji to the server", "```{prefix}steal <emote>```or```{prefix}steal link <emoteUrl>```"],
     enabled: true,
+    hidden: false,
     aliases: [],
     category: "Admin",
     memberPermissions: ["MANAGE_EMOJIS_AND_STICKERS"],
@@ -22,6 +23,7 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
+            if (!args[0]) return client.embed.usage(message, data);
             if (args[0].includes("link")) {
                 if (!args[1]) return client.embed.usage(message, data);
                 const url = args[1];

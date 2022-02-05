@@ -4,10 +4,11 @@ const DB = require("../../Database/Schema/WarningDB")
 module.exports = {
     name: "warning",
     usage: [""],
-    enabled: true,
+    enabled: false,
+    hidden: true,
     aliases: [],
     category: "Moderation",
-    memberPermissions: ["ADMINISTRAOR"],
+    memberPermissions: ["KICK_MEMBERS", "MANAGE_ROLES"],
     botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
     //Settings for command
     nsfw: false,
@@ -24,7 +25,7 @@ module.exports = {
     async execute(client, message, args, data) {
         try {
             const member = !args[0] ? null : await client.tools.resolveMember(args[0], message.guild);
-            // Load the user
+            const warnDate = new Date(message.createdTimestamp).toLocaleDateString;
             const reason = (() => {
                 if (args.length == 1) {
                     return ("No reason provided");
@@ -34,7 +35,7 @@ module.exports = {
                 }
             })();
             const user = member.user;
-            DB.findOne({
+            await DB.findOne({
                 GuildID: message.guild.id,
                 UserID: user.id,
                 UserTag: user.tag,
@@ -45,25 +46,30 @@ module.exports = {
                         GuildID: message.guild.id,
                         UserID: user.id,
                         UserTag: user.tag,
-                        content: [{
-                            Moderator: message.author.id,
-                            Reason: reason
+                        Content: [{
+                            ExcuterID: message.author.id,
+                            ExcuterTag: message.author.tag,
+                            Reason: reason,
+                            Date: date
                         }]
                     })
                 } else {
                     const object = {
-                        moderator: message.author.id,
-                        reason: reason
+                        ExcuterID: message.author.id,
+                        ExcuterTag: message.author.tag,
+                        Reason: reason,
+                        Date: date
                     }
-                    data.content.push(object)
+                    data.Content.push(object)
                 }
                 data.save()
+            });
 
-            })
 
-            message.channel.send('Warned the user!')
-            user.send('You have been warned!')
-
+            return client.embed.send(message, {
+                title: `Warned ${user.tag}`,
+                description: `Warning added: ${user.tag} || ${user.id}\nReason: ${reason}`,
+            });
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
             console.log(err)

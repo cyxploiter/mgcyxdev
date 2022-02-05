@@ -2,6 +2,7 @@ module.exports = {
     name: "botstats",
     usage: ["Information about the current statitics of the bot```{prefix}botstats```"],
     enabled: true,
+    hidden: false,
     aliases: [],
     category: "General",
     memberPermissions: [],
