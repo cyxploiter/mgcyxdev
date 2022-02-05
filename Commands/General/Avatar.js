@@ -11,6 +11,12 @@ module.exports = {
     ownerOnly: false,
     cooldown: 5000,
 
+    /**
+     * @param {Discord.Client} client
+     * @param {Discord.Message} message
+     * @param {String[]} args
+     */
+
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
@@ -22,7 +28,7 @@ module.exports = {
                 dynamic: true
             });
             const extension = avatar.includes("a_") ? 'GIF' : 'PNG';
-            console.log(extension)
+            
             extension.includes("GIF") ? client.embed.send(message, {
                 title: `Avatar of ${user.username}`,
                 fields: [{
