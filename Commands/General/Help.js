@@ -77,7 +77,7 @@ module.exports = {
                 }).map(x => {
                     return `\`${x.name}\``
                 });
-                let cmdText = commands.length === 0 ? "||Hidden||" : commands.join(" ");
+                let cmdText = commands.length === 0 ? "Hidden" : commands.join(" ");
                 let obj = {
                     name: category,
                     value: `${cmdText}`
@@ -93,7 +93,9 @@ module.exports = {
                 },
                 description: `Type \`${data.guild.prefix}help [command]\` for more help. For example, \`${data.guild.prefix}help avatar\``,
                 fields: cmdArr,
-                footer: `Command named **Hidden** is hidden from the users and hence can't be used.`
+                footer: {
+                    text: `Command named Hidden are unavaible to the users and hence can't be used.`
+                }
             })
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
