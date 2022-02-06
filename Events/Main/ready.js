@@ -1,12 +1,14 @@
 const client = require("../../cyx")
 
-client.on("ready", () => {
+client.on("ready", async () => {
     console.log(`${client.user.tag} is up and ready to go!`)
     client.user.setPresence({
-        activity: {
-            name: 'for ,help',
+        activities: [{
+            name: "Cyx's leaked 18+ tape",
             type: "WATCHING",
-        },
-        status: "online"
+            url: "https://discord.gg/dys/",
+            buttons: "Join Us?"
+        }],
+        status: "idle"
     });
 })

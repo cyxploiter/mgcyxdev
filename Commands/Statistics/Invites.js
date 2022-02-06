@@ -33,7 +33,7 @@ const options = {
 };
 
 module.exports = {
-    name: "invites",
+    name: "joins",
     usage: ["See the dates at which the most amount of users have joined your server```{prefix}invites <days>```"],
     enabled: true,
     hidden: false,
@@ -46,12 +46,16 @@ module.exports = {
     ownerOnly: false,
     cooldown: 5000,
 
+    /**
+     * @param {Discord.Client} client
+     * @param {Discord.Message} message
+     * @param {String[]} args
+     */
+
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
-
-
-            let days = isNaN(Number(args[0])) ? Number(args[0]) : 30;
+            let days = isNaN(Number(args[0])) ? 30 : Number(args[0]);
             let times = await fetchTimes(message.guild, days);
 
             if (times === false) return message.channel.send("No members have joined your server within this time frame")
@@ -82,7 +86,7 @@ module.exports = {
                 .setAuthor(`${message.guild.name} Joins Stats`, message.guild.iconURL({
                     dynamic: true
                 }))
-                .setDescription(`In the past ${args[0]} days ${userAmount} users have joined this server`)
+                .setDescription(`In the past ${days} days ${userAmount} users have joined this server`)
                 .setImage('attachment://image.png')
                 .setColor("WHITE");
             return message.reply({

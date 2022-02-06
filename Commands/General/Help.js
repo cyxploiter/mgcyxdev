@@ -54,6 +54,7 @@ module.exports = {
                     const ignoredCategories = (() => {
                         if (!message.member.roles.cache.has("902196590540894259")) {
                             const ignoredCategories = ["Admin", "Moderation"]
+                            return ignoredCategories;
                         } else {
                             return ["Admin"]
                         }

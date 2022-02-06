@@ -4,7 +4,7 @@ module.exports = {
     enabled: true,
     hidden: false,
     aliases: [],
-    category: "General",
+    category: "Statistics",
     memberPermissions: [],
     botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
     //Settings for command
