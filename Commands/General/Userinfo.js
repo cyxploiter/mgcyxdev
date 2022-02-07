@@ -3,7 +3,7 @@ const Discord = require('discord.js')
 
 module.exports = {
     name: "userinfo",
-    usage: ["Get information about your profile```{prefix}userinfo```"],
+    usage: ["Get information about your profile```{prefix}userinfo <@user/userId>```"],
     enabled: true,
     hidden: false,
     aliases: ["ui"],
@@ -25,15 +25,13 @@ module.exports = {
         try {
             // Get member from guild
             let member = !args[0] ? await client.tools.resolveMember(message.author.id, message.guild) : await client.tools.resolveMember(args[0], message.guild)
-
+            if (!member) return client.embed.usage(message, data);
             // Get a list of roles
             let roleCount = await member.roles.cache.map(x => "<@&" + x.id + ">").join(" ");
             // Get joined date for member
             let joinDate = await moment(member.joinedTimestamp).format('MMMM Do YYYY, HH:mm:ss');
             // Get user account create date
             let createDate = await moment(member.createdAt).format('MMMM Do YYYY, HH:mm:ss');
-
-
 
             // Add the information to the embed
             return client.embed.send(message, {

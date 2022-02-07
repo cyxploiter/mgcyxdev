@@ -80,6 +80,11 @@ module.exports.resolveMember = async (search, guild) => {
         member = await guild.members.fetch(id).catch(() => {});
         if (member) return member;
     }
+    if (search.match(/\d{0,18}/)) {
+        const id = search.match(/\d{0,18}/);
+        member = await guild.members.cache.get(id);
+        if (member) return member;
+    }
     //Try to search using username
     if (search.match(/^!?(\w+)#(\d+)$/)) {
         guild = await guild.fetch();

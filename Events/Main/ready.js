@@ -5,9 +5,8 @@ client.on("ready", async () => {
     client.user.setPresence({
         activities: [{
             name: "Cyx's leaked 18+ tape",
-            type: "WATCHING",
+            type: "STREAMING",
             url: "https://discord.gg/dys/",
-            buttons: "Join Us?"
         }],
         status: "idle"
     });
