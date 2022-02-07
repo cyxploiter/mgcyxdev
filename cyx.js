@@ -26,7 +26,7 @@ client.Database = require('./Database/Mongoose.js');
 client.tools = require('./Tools/Tools.js');
 client.logger = require('./Tools/Logger.js');
 client.embed = require('./Tools/Embed.js');
-
+client.snipes = new Discord.Collection();
 
 
 async function init() {

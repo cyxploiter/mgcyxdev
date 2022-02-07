@@ -1,9 +1,9 @@
 const Discord = require("discord.js");
 
 module.exports = {
-    name: "test",
-    usage: [""],
-    enabled: true,
+    name: "snipe",
+    usage: ["Snipes the last deleted message from the channel.```{prefix}snipe```"],
+    enabled: false,
     hidden: true,
     aliases: [],
     category: "",
@@ -23,11 +23,19 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
-            const fetchedMessage = await message.channel.messages.fetch(args[0])
-            const filterBy = "931289932989886494";
-            const reactions = await fetchedMessage.reactions.cache.filter(r => r.toJSON);
-            console.log(reactions)
-            fetchedMessage.reactions.resolve(filterBy).remove(filterBy)
+            const snipes = client.snipes.get(message.channel.id);
+            if (!snipes) return message.reply("Hm? sadly we don't have nothing to snipe yet.")
+
+            const {
+                msg,
+                time,
+                image
+            } = snipes[0];
+            return client.embed.send(message, {
+                title: `Sniped!!`,
+                description: `${msg.content}`,
+                timestamp: `${time}`
+            })
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
             console.log(err)
