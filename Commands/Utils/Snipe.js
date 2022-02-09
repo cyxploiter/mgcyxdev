@@ -3,8 +3,8 @@ const Discord = require("discord.js");
 module.exports = {
     name: "snipe",
     usage: ["Snipes the last deleted message from the channel.```{prefix}snipe```"],
-    enabled: false,
-    hidden: true,
+    enabled: true,
+    hidden: false,
     aliases: [],
     category: "",
     memberPermissions: [],
@@ -31,10 +31,12 @@ module.exports = {
                 time,
                 image
             } = snipes[0];
+            console.log(time)
             return client.embed.send(message, {
-                title: `Sniped!!`,
                 description: `${msg.content}`,
-                timestamp: `${time}`
+                footer: {
+                    text: `${msg.author.tag} | ${time}`
+                }
             })
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
@@ -44,7 +46,7 @@ module.exports = {
                 color: `RED`,
                 author: {
                     name: `Uh Oh!`,
-                    icon_url: `${message.author.displayAvatarURL()}`,
+                    icon_url: `${message.author.displayAvatarURL({dynamic: true})}`,
                     url: "",
                 }
             });
