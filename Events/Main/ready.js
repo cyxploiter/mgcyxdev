@@ -1,6 +1,7 @@
 const client = require("../../cyx")
 
 client.on("ready", async () => {
+
     console.log(`${client.user.tag} is up and ready to go!`)
     client.user.setPresence({
         activities: [{

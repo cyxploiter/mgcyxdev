@@ -14,7 +14,7 @@ const Discord = require('discord.js'),
     readdir = util.promisify(fs.readdir),
     client = new Discord.Client({
         intents: 32767,
-        partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
+        partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'GUILD_MEMBER'],
     });
 
 module.exports = client;
@@ -28,6 +28,20 @@ client.logger = require('./Tools/Logger.js');
 client.embed = require('./Tools/Embed.js');
 client.snipes = new Discord.Collection();
 
+
+const {
+    DisTube
+} = require("distube");
+const {
+    SpotifyPlugin
+} = require("@distube/spotify")
+
+client.distube = new DisTube(client, {
+    emitNewSongOnly: true,
+    leaveOnFinish: false,
+    emitAddSongWhenCreatingQueue: false,
+    plugins: [new SpotifyPlugin()]
+});
 
 async function init() {
     // Load Discordjs Events

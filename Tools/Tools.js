@@ -50,7 +50,6 @@ module.exports.resolveChannel = async (search, guild) => {
     if (search.match(/^#&!?(\d+)$/)) {
         let id = search.match(/^#&!?(\d+)$/)[1];
         channel = guild.channels.cache.get(id);
-        console.log(channel)
         if (channel) return channel;
     }
     //Got fucking lazy so I just removed the <#>
@@ -58,7 +57,6 @@ module.exports.resolveChannel = async (search, guild) => {
         let firstChannel = search.replace("<#", "");
         let channelID = firstChannel.replace(">", "");
         let channel = guild.channels.cache.get(channelID);
-        console.log(channel)
         if (channel) return channel;
     }
     //Try to search it using name
@@ -66,7 +64,6 @@ module.exports.resolveChannel = async (search, guild) => {
     if (channel) return channel;
     //Try to find the channel itself
     channel = guild.channels.cache.get(search);
-    console.log(channel)
     return channel;
 };
 

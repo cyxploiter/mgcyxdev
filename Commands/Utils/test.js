@@ -12,7 +12,7 @@ module.exports = {
     //Settings for command
     nsfw: false,
     ownerOnly: false,
-    cooldown: 5000,
+    cooldown: 0,
 
     /**
      * @param {Discord.Client} client
@@ -23,11 +23,8 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
-            const fetchedMessage = await message.channel.messages.fetch(args[0])
-            const filterBy = "931289932989886494";
-            const reactions = await fetchedMessage.reactions.cache.filter(r => r.toJSON);
-            console.log(reactions)
-            fetchedMessage.reactions.resolve(filterBy).remove(filterBy)
+            let member = !args[0] ? null : await client.tools.resolveMember(args[0], message.guild);
+            console.log(member)
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
             console.log(err)
