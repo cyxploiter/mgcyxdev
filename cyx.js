@@ -29,19 +29,7 @@ client.embed = require('./Tools/Embed.js');
 client.snipes = new Discord.Collection();
 
 
-const {
-    DisTube
-} = require("distube");
-const {
-    SpotifyPlugin
-} = require("@distube/spotify")
 
-client.distube = new DisTube(client, {
-    emitNewSongOnly: true,
-    leaveOnFinish: false,
-    emitAddSongWhenCreatingQueue: false,
-    plugins: [new SpotifyPlugin()]
-});
 
 async function init() {
     // Load Discordjs Events
