@@ -23,7 +23,7 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
-            const url = `https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands`;
+            const url = "https://discord.com/api/oauth2/authorize?client_id=929312379798429716&permissions=8&scope=bot%20applications.commands";
             const embed = new Discord.MessageEmbed()
                 .setColor("WHITE")
                 .setAuthor({
