@@ -4,9 +4,9 @@ module.exports = {
     name: "logger",
     usage: [""],
     enabled: true,
-    hidden: true,
+    hidden: false,
     aliases: [],
-    category: "",
+    category: "Admin",
     memberPermissions: [],
     botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
     //Settings for command
