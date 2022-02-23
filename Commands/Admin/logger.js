@@ -14,11 +14,6 @@ module.exports = {
     ownerOnly: false,
     cooldown: 5000,
 
-    /**
-     * @param {Discord.Client} client
-     * @param {Discord.Message} message
-     * @param {String[]} args
-     */
 
     // Execute contains content for the command
     async execute(client, message, args, data) {
