@@ -47,7 +47,7 @@ module.exports = {
                 const emoteName = (() => {
                     return emoteNameRegex.exec(emoji[0])[2]
                 })();
-                message.guild.emojis.create(url, `adys_${emoteName}`).then((emote) => message.reply(`Added emote with name \`${emote.name}\``));
+                message.guild.emojis.create(url, `adys_${emoteName}`).then((emote) => message.reply(`Added emote with name \`${emote.name}\``)).catch((err) => message.reply(`cant add any emotes anymore. maximum amount of emotes reached.`));
             }
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
