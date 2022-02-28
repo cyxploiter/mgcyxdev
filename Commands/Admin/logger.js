@@ -7,7 +7,7 @@ module.exports = {
     hidden: false,
     aliases: [],
     category: "Admin",
-    memberPermissions: [],
+    memberPermissions: ["ADMINISTRATOR"],
     botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
     //Settings for command
     nsfw: false,
@@ -25,10 +25,7 @@ module.exports = {
             if (!data.guild.addons.logger) {
                 data.guild.addons.logger = {
                     enabled: false,
-                    channel: "",
-                    message: "",
-                    image: false,
-                    embed: false
+                    channel: ""
                 }
                 data.guild.markModified('addons.logger');
                 await data.guild.save();
