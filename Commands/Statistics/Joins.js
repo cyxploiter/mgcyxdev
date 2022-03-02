@@ -39,7 +39,7 @@ module.exports = {
     hidden: false,
     aliases: [],
     category: "Statistics",
-    memberPermissions: ["ADMINISTRATOR"],
+    memberPermissions: [],
     botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
     //Settings for command
     nsfw: false,
