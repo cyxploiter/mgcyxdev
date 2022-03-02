@@ -23,16 +23,23 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
-            const url = "https://discord.com/api/oauth2/authorize?client_id=929312379798429716&permissions=8&scope=bot%20applications.commands";
+            const url = `https://discord.com/api/oauth2/authorize?client_id=${client.application.id}&permissions=8&scope=bot%20applications.commands`;
             const embed = new Discord.MessageEmbed()
                 .setColor("WHITE")
                 .setAuthor({
                     name: `Invite link for ${client.user.username}`,
-                    iconURL: client.user.avatarURL()
+                    iconURL: client.application.iconURL()
                 })
                 .setDescription(`[Click here to invite me to your server!](${url})`);
             message.author.send({
                 embeds: [embed]
+            }).then((m) => {}).catch((err) => {
+                message.reply(`${message.author}, I couldn't send you the invite link because you have DMs disabled.`);
+            });
+
+            return client.embed.send(message, {
+                title: "Invite link sent!",
+                description: `Check your DMs!`,
             });
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)

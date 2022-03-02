@@ -4,7 +4,7 @@ const {
 } = require('chartjs-node-canvas');
 
 const width = 1200;
-const height = 375;
+const height = 400;
 const chartCallback = (ChartJS) => {
 
     ChartJS.defaults.global.elements.rectangle.borderWidth = 2;
@@ -57,8 +57,7 @@ module.exports = {
         try {
             let days = isNaN(Number(args[0])) ? 30 : Number(args[0]);
             let times = await fetchTimes(message.guild, days);
-
-            if (times === false) return message.channel.send("No members have joined your server within this time frame")
+            if (times === false) return message.reply("No members have joined your server within this time frame")
 
             let lastXDays = await times.map(x => x.date)
             let amountJoined = await times.map(x => x.amount)
@@ -81,13 +80,16 @@ module.exports = {
                 options
             });
 
-            const attachment = new Discord.MessageAttachment(image, "image.png");
+            const attachment = new Discord.MessageAttachment(image, "joins.gif");
             let embed = new Discord.MessageEmbed()
-                .setAuthor(`${message.guild.name} Joins Stats`, message.guild.iconURL({
-                    dynamic: true
-                }))
+                .setAuthor({
+                    name: `${message.guild.name} Joins Stats`,
+                    iconURL: message.guild.iconURL({
+                        dynamic: true
+                    })
+                })
                 .setDescription(`In the past ${days} days ${userAmount} users have joined this server`)
-                .setImage('attachment://image.png')
+                .setImage('attachment://joins.gif')
                 .setColor("WHITE");
             return message.reply({
                 embeds: [embed],
@@ -128,6 +130,7 @@ module.exports = {
                     }
                 }
 
+
                 let arrData = [];
                 for (var key in data) {
                     if (data.hasOwnProperty(key)) {
@@ -143,8 +146,8 @@ module.exports = {
             }
 
             async function checkDate(firstDate, secondDate) {
-                let first = `${firstDate.getDate()}-${firstDate.getMonth()}-${firstDate.getFullYear()}`;
-                let second = `${secondDate.getDate()}-${secondDate.getMonth()}-${secondDate.getFullYear()}`;
+                let first = `${firstDate.getDate()}-${firstDate.getMonth()+1}-${firstDate.getFullYear()}`;
+                let second = `${secondDate.getDate()}-${secondDate.getMonth()+1}-${secondDate.getFullYear()}`;
                 let check = first === second;
                 let checkedData = {
                     check: check,
