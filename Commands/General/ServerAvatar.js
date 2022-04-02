@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 
 module.exports = {
     name: "serveravatar",
-    usage: [""],
+    usage: ["Gets server avatar ```{prefix}sav```", "Gets member's server avatar ```{prefix}sav @user```"],
     enabled: true,
     hidden: false,
     aliases: ["sav"],
