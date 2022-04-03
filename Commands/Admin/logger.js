@@ -57,7 +57,7 @@ module.exports = {
                 return client.embed.send(message, {
                     color: client.config.color,
                     title: 'Channel set',
-                    description: `Deleted messages will be sent to ${channel}`
+                    description: `Deleted and Edited messages will be sent to ${channel}`
                 });
             };
 

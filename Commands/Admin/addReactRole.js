@@ -34,6 +34,7 @@ module.exports = {
             if (!fetchedMessage) return;
             fetchedMessage.react(args[1]);
             const user = message.guild.members.cache.get(message.author.id);
+            const emoteRegex = /<:.+:(\d+)>/gm;
             const roleEmote = (() => {
                 if (args[1].match(/<a?:.+:\d+>/gm)) {
                     if (emoji = emoteRegex.exec(args[1])) {
