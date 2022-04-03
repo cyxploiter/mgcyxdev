@@ -31,13 +31,24 @@ module.exports = {
                 time,
                 image
             } = snipes[0];
-            console.log(time)
+            if (!image) {
+                return client.embed.send(message, {
+                    description: `${msg.content}`,
+                    footer: {
+                        text: `${msg.author.tag} | ${time}`
+                    }
+                })
+            }
             return client.embed.send(message, {
                 description: `${msg.content}`,
                 footer: {
                     text: `${msg.author.tag} | ${time}`
+                },
+                image: {
+                    url: image
                 }
-            })
+            });
+
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
             console.log(err)

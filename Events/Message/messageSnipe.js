@@ -1,12 +1,13 @@
 const client = require("../../cyx");
 
 client.on('messageDelete', async (message) => {
+    if (message.author.bot) return;
     let snipes = client.snipes.get(message.channel.id) || [];
     if (snipes.length > 5) snipes.slice(0, 4);
 
     snipes.unshift({
         msg: message,
-        image: message.attachments.first()?.proxyURL || null,
+        image: message.attachments.first() ?.proxyURL || null,
         time: new Date(message.createdTimestamp).toLocaleTimeString()
     })
 
