@@ -40,7 +40,7 @@ client.on("messageCreate", async (message) => {
                     Embed.setDescription(`${m} is currently AFK.`).setColor("DARKER_GREY");
                 } else {
 
-                    Embed.setDescription(`${m} is currently AFK.\n**Status:** ${data.Status}`).setColor("DARKER_GREY");
+                    Embed.setDescription(`${m} is currently AFK.\n**Status:**${data.Status}`).setColor("DARKER_GREY");
                 }
                 return message.reply({
                     embeds: [Embed]

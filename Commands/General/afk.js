@@ -53,7 +53,7 @@ module.exports = {
             if (!afkStatus) {
                 embed.setColor("WHITE").setDescription(`Your AFK has been set!\nI'll notify if someone pings you.`);
             } else {
-                embed.setColor("WHITE").setDescription(`Your AFK has been set: ${afkStatus}\nI'll notify if someone pings you.`);
+                embed.setColor("WHITE").setDescription(`Your AFK has been set:${afkStatus}\nI'll notify if someone pings you.`);
             }
             message.reply({
                 embeds: [embed]

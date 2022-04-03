@@ -8,7 +8,7 @@ module.exports = {
     enabled: true,
     hidden: false,
     aliases: ["sav"],
-    category: "",
+    category: "General",
     memberPermissions: [],
     botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
     //Settings for command
@@ -25,7 +25,7 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
-            if (!args) {
+            if (args === undefined || args.length === 0) {
                 return client.embed.send(message, {
                     title: `${message.guild.name} server avatar`,
                     fields: [{
