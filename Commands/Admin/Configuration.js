@@ -17,6 +17,7 @@ module.exports = {
         try {
             let welcome = !data.guild.addons.welcome ? `Enabled: False` : `Enabled: True\nChannel: <#${data.guild.addons.welcome.channel}>\nImage: ${data.guild.addons.welcome.image}\nEmbed: ${data.guild.addons.welcome.embed}`;
             let goodbye = !data.guild.addons.goodbye ? `Enabled: False` : `Enabled: True\nChannel: <#${data.guild.addons.goodbye.channel}>\nImage: ${data.guild.addons.goodbye.image}\nEmbed: ${data.guild.addons.goodbye.embed}`;
+            let logger = !data.guild.addons.logger ? `Enabled: False` : `Enabled: True\nChannel: <#${data.guild.addons.logger.channel}>`;
             return client.embed.send(message, {
                 description: `Use admins commands to change these settings`,
                 fields: [{
@@ -26,14 +27,19 @@ module.exports = {
                     },
                     {
                         name: `Welcome settings`,
-                        value: welcome,
+                        value: `${welcome}`,
                         inline: true
                     },
                     {
                         name: `Goodbye settings`,
-                        value: goodbye,
+                        value: `${goodbye}`,
                         inline: true
                     },
+                    {
+                        name: `Logger settings`,
+                        value: `${logger}`,
+                        inline: true
+                    }
                 ],
                 author: {
                     name: `Guild Configurations`,
