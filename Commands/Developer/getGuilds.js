@@ -23,13 +23,54 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
-            let guilds = client.guilds.cache;
-            let guildsArray = guilds.map(guild => guild.name);
-            return client.embed.send(message, {
-                title: "Guilds",
-                description: `${guildsArray.join("\n")}`,
-                footer: `${guilds.length} guilds`
-            });
+            const invites = [];
+
+            //cant use async inside of forEach 
+            //https://www.coreycleary.me/why-does-async-await-in-a-foreach-not-actually-await/
+            for (const [guildID, guild] of client.guilds.cache) {
+                //if no invite was able to be created or fetched default to string
+                let invite = "No invite";
+
+                //fetch already made invites first
+                const fetch = await guild.invites.fetch().catch(() => undefined);
+
+                //if fetch worked and there is atleast one invite
+                if (fetch && fetch.size) {
+                    invite = fetch.first().url;
+                    invites.push({
+                        name: guild.name,
+                        invite
+                    });
+                    continue;
+                }
+
+                if (!invite && channel.createInvite) {
+                    const attempt = await channel.createInvite({
+                        maxAge: 0,
+                        maxUses: 0
+                    }).catch(() => undefined);
+
+                    if (attempt) {
+                        invite = attempt.url;
+                    }
+                }
+
+
+                invites.push({
+                    name: guild.name,
+                    invite
+                });
+            }
+
+            const embed = new Discord.MessageEmbed()
+                .setColor(
+                    "WHITE"
+                )
+                .setTitle(`${client.user.username} Guilds`)
+                .setDescription(invites.map(invite => `[${invite.name}](${invite.invite})`).join("\n"))
+            message.reply({
+                embeds: [embed]
+            })
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
             console.log(err)
