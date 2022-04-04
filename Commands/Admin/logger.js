@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports = {
     name: "logger",
-    usage: [""],
+    usage: ["Sends deleted and edited message in selected channel. ```{prefix}logger set #channel```", "To disable message logger```{prefix}logger disable```"],
     enabled: true,
     hidden: false,
     aliases: [],
