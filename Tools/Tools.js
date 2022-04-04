@@ -100,3 +100,26 @@ module.exports.resolveMember = async (search, guild) => {
     member = await guild.members.fetch(search).catch(() => {});
     return member;
 };
+
+
+module.exports.resolveRole = async (search, guild) => {
+    let role = null;
+    if (!search || typeof search !== "string") return;
+    // Try to search using ID
+    if (search.match(/^<@&!?(\d+)>$/)) {
+        const id = search.match(/^<@&!?(\d+)>$/)[1];
+        role = guild.roles.cache.get(id);
+        if (role) return role;
+    }
+    if (search.match(/\d{0,18}/)) {
+        const id = search.match(/\d{0,18}/);
+        role = guild.roles.cache.get(id);
+        if (role) return role;
+    }
+    //Try to search using name
+    role = guild.roles.cache.find((r) => search.toLowerCase() === r.name.toLowerCase());
+    if (role) return role;
+    //Try to find the role itself
+    role = guild.roles.cache.get(search);
+    return role;
+};

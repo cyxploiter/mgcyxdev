@@ -35,7 +35,12 @@ module.exports = mongoose.model("Guild", new mongoose.Schema({
             logger: {
                 enabled: false,
                 channel: null,
-            }
+            },
+            statusrole: {
+                enabled: false,
+                role: null,
+                filter: null
+            },
         }
     }
 
