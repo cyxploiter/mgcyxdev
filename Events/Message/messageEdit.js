@@ -1,42 +1,40 @@
 const client = require("../../cyx");
 const Discord = require("discord.js");
 
-client.on("messageEdit", async (oldMessage, newMessage) => {
-    try {
-        let guild = newMessage.guild;
-        let guildData = await client.Database.fetchGuild(guild.id);
-        if (!guildData.addons.logger.enabled) return;
-        let logsChannel = await client.tools.resolveChannel(guildData.addons.logger.channel, guild);
-        if (oldMessage.partial) {
-            const logEmbed = new Discord.MessageEmbed()
-                .setColor("BLACK")
-                .setDescription(
-                    `Someone edited an uncached message.`
-                )
-                .setTimestamp();
-            return logsChannel.send({
-                    embeds: [logEmbed],
-                })
-                .catch((err) => console.log(err));
-        };
-        if (!logsChannel) return;
-
-        if (newMessage.author.bot) return;
-        if (newMessage.channel.type === "dm") return;
-
-        const logEmbed = new Discord.MessageEmbed()
-            .setColor("DARKER_GREY")
+client.on("messageUpdate", async (oldMessage, newMessage) => {
+    const guild = newMessage.guild;
+    const guildData = await client.Database.fetchGuild(guild.id);
+    if (!guildData.addons.logger.enabled) return;
+    const logsChannel = await client.tools.resolveChannel(guildData.addons.logger.channel, guild);
+    if (oldMessage.partial) {
+        const delLogEmbed = new Discord.MessageEmbed()
+            .setColor("BLACK")
             .setDescription(
-                `${executor} edited a [message](${newMessage.url}) in ${newMessage.channel
-                }\n\n**Old Message:**\n ${oldMessage.content ? oldMessage.content : "No message content"
-                }\n\n**New Message:**\n ${newMessage.content ? newMessage.content : "No message content"
-                }`
+                `${newMessage.author} edited an uncached message.`
             )
-            .setTimestamp()
-            .setFooter({
-                text: `Author ID: ${newMessage.author.id} | MessageID: ${newMessage.id}`,
-            });
-    } catch (err) {
-        console.log(err);
+            .setTimestamp();
+        return logsChannel.send({
+                embeds: [delLogEmbed],
+            })
+            .catch((err) => console.log(err));
     }
+    if (oldMessage.author.bot || oldMessage.channel.type === "DM") return;
+    if (oldMessage.content == newMessage.content) return;
+
+
+    const count = 1950;
+    const original = oldMessage.content.slice(0, count) + (oldMessage.content.length > count ? " ..." : "");
+    const edited = newMessage.content.length > count ? `${newMessage.content.substr(0, count)}...` : newMessage.content;
+
+    const logEmbed = new Discord.MessageEmbed()
+        .setColor("WHITE")
+        .setDescription(
+            `${oldMessage.author} edited [message](${newMessage.url}) in ${newMessage.channel}.\n\n**Original:**\n${original}\n**Edited:**\n${edited}`
+        )
+        .setTimestamp();
+    logsChannel.send({
+            embeds: [logEmbed],
+        })
+        .catch((err) => console.log(err));
+
 });
