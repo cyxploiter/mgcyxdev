@@ -34,12 +34,14 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
                 embeds: [logEmbed]
             });
         } else if (type == 'vanity') {
+
+    const vanity = (await (member.guild.fetchVanityData()));
             logEmbed.addFields({
                 name: `${member.user.tag} joined using vanity.`,
                 value: `User ID: ${member.user.id} | Registered At: ${member.user.createdAt}`,
             }, {
                 name: `Vanity`,
-                value: `Vanity code: ${invite.code} | Vanity Uses: ${invite.uses}`,
+                value: `Vanity code: ${vanity.code} | Vanity Uses: ${vanity.uses}`,
             })
             return logsChannel.send({
                 embeds: [logEmbed]
