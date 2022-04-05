@@ -31,7 +31,7 @@ module.exports = {
             // Get joined date for member
             let joinDate = await moment(member.joinedTimestamp).format('MMMM Do YYYY, HH:mm:ss');
             // Get user account create date
-            let createDate = await moment(member.createdAt).format('MMMM Do YYYY, HH:mm:ss');
+            let createDate = await moment(member.user.createdTimestamp).format('MMMM Do YYYY, HH:mm:ss');
 
             // Add the information to the embed
             return client.embed.send(message, {

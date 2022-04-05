@@ -86,6 +86,16 @@ client.on("messageDelete", async (message) => {
         });
 
     } catch (err) {
-        console.log(err);
+        client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
+        console.log(err)
+        return client.embed.send(message, {
+            description: `An issue has occured while logging a deleted message. If this error keeps occuring please contact our development team.`,
+            color: `RED`,
+            author: {
+                name: `Uh Oh!`,
+                icon_url: `${client.user.displayAvatarURL()}`,
+                url: "",
+            }
+        });
     }
 });
