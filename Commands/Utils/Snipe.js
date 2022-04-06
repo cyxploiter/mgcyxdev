@@ -47,16 +47,24 @@ module.exports = {
                     return new Discord.MessageAttachment(image, "video.mp4");
                 }
             })();
-            console.log(attacment)
-            return client.embed.send(message, {
-                description: `${msg.content}`,
-                footer: {
+            if (attacment.name === "video.mp4") {
+                return message.reply({
+                    content: `${msg.content}`,
+                    files: [attacment]
+                })
+            }
+            const Embed = new Discord.MessageEmbed()
+                .setDescription(`${msg.content}`)
+                .setFooter({
                     text: `${msg.author.tag} | ${time}`
-                },
-                image: {
-                    url: attacment.proxyURL
-                }
-            }, attacment);
+                })
+                .setColor("WHITE")
+                .setImage(`attachment://${attacment.name}`);
+
+            return message.reply({
+                embeds: [Embed],
+                files: [attacment]
+            })
 
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
