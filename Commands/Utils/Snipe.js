@@ -39,15 +39,24 @@ module.exports = {
                     }
                 })
             }
+
+            const attacment = (() => {
+                if (image.includes(".png") || image.includes(".jpg") || image.includes(".jpeg") || image.includes(".gif")) {
+                    return new Discord.MessageAttachment(image, "image.png");
+                } else {
+                    return new Discord.MessageAttachment(image, "video.mp4");
+                }
+            })();
+            console.log(attacment)
             return client.embed.send(message, {
                 description: `${msg.content}`,
                 footer: {
                     text: `${msg.author.tag} | ${time}`
                 },
                 image: {
-                    url: image
+                    url: attacment.proxyURL
                 }
-            });
+            }, attacment);
 
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)

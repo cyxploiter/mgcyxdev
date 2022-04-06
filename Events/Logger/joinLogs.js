@@ -28,14 +28,14 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
 
             }, {
                 name: `Invite`,
-                value: `${invite.code} | ${"Used",invite.uses, 'times' || 'Never Used'} | ${invite.maxUses || 'Unlimited'} uses | ${invite.maxAge || 'Unlimited'} days | Created by ${invite.inviter.tag}`,
+                value: `${invite.code} | ${`Used ${invite.uses} times` || 'Never Used'} | ${invite.maxUses || 'Unlimited'} uses | ${invite.maxAge || 'Unlimited'} days | Created by ${invite.inviter.tag}`,
             })
             return logsChannel.send({
                 embeds: [logEmbed]
             });
         } else if (type == 'vanity') {
 
-    const vanity = (await (member.guild.fetchVanityData()));
+            const vanity = (await (member.guild.fetchVanityData()));
             logEmbed.addFields({
                 name: `${member.user.tag} joined using vanity.`,
                 value: `User ID: ${member.user.id} | Registered At: ${member.user.createdAt}`,

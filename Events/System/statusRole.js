@@ -6,7 +6,7 @@ client.on('presenceUpdate', async (oldPresence, newPresence) => {
     const member = newPresence.member;
     let guild = member.guild;
     let guildData = await client.Database.fetchGuild(guild.id);
-    if (!guildData.addons.statusrole.enabled) return;
+    if (!guildData.addons.statusRole || !guildData.addons.statusrole.enabled) return;
     let statusRole = await client.tools.resolveRole(guildData.addons.statusrole.role, guild);
 
     if (member.presence.status === "offline") return;
