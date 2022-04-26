@@ -25,7 +25,8 @@
     "mongoose": "^5.12.12",
     "node-fetch": "^2.6.7",
     "nodemon": "^2.0.15",
-    "random-puppy": "^1.1.0"
+    "random-puppy": "^1.1.0",
+    "tiktok-scraper": "^1.4.36"
   },
   "author": "Cyx#1337"
 }
