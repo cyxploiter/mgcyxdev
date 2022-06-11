@@ -45,6 +45,10 @@ module.exports = mongoose.model("Guild", new mongoose.Schema({
                 enabled: false,
                 channel: null
             },
+            network: {
+                enabled: false,
+                netMessage: null
+            },
         }
     }
 

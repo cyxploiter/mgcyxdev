@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const fetch = require("node-fetch");
 
 module.exports = {
     name: "test",
@@ -23,8 +24,14 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
-            let member = !args[0] ? null : await client.tools.resolveMember(args[0], message.guild);
-            console.log(member)
+            message.channel.createInvite({
+                max_age: 0,
+                max_uses: 0,
+                unique: true
+            }).then(async (invite) => {
+                console.log(invite.url);
+            });
+
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
             console.log(err)
