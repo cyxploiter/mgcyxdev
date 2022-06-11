@@ -68,7 +68,7 @@ module.exports = {
                 });
             };
 
-            if (args[0].toLowerCase() === "set") {
+            if (args[0].toLowerCase() === "add") {
 
                 if (!data.guild.addons.statusrole.enabled) return message.reply("Status role is not enabled");
                 const word = args.slice(1).join(" ");

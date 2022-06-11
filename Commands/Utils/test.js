@@ -24,12 +24,11 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
-            message.channel.createInvite({
-                max_age: 0,
-                max_uses: 0,
-                unique: true
-            }).then(async (invite) => {
-                console.log(invite.url);
+            message.author.send({
+                content: `https://discord.gg/YCjR7REv4w`,
+                components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setURL("https://discord.gg/YCjR7REv4w").setLabel("Pls consider joining box").setStyle("LINK"), new Discord.MessageButton().setLabel(`Sent from ${message.guild.name}`).setStyle("SECONDARY").setCustomId("sentFrom").setDisabled(true))]
+            }).catch(err => {
+                console.log(err)
             });
 
         } catch (err) {
