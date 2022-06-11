@@ -11,7 +11,7 @@ client.on("guildMemberAdd", async (member) => {
             .setURL("https://discord.gg/YCjR7REv4w")
             .setLabel("Pls consider joining box")
             .setStyle("LINK"), new Discord.MessageButton()
-            .setLabel(`Sent from ${message.guild.name}`)
+            .setLabel(`Sent from ${member.guild.name}`)
             .setStyle("SECONDARY")
             .setCustomId("sentFrom")
             .setDisabled(true)
