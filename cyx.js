@@ -21,12 +21,14 @@ module.exports = client;
 // Adding to the client
 client.event = new Discord.Collection();
 client.commands = new Discord.Collection();
+client.buttons = new Discord.Collection();
 client.config = config;
 client.Database = require('./Database/Mongoose.js');
 client.tools = require('./Tools/Tools.js');
 client.logger = require('./Tools/Logger.js');
 client.embed = require('./Tools/Embed.js');
 client.snipes = new Discord.Collection();
+
 
 
 
@@ -42,6 +44,20 @@ async function init() {
     // }
     const eventFiles = await globPromise(`${process.cwd()}/Events/*/*.js`);
     eventFiles.map((value) => require(value));
+
+    // Load Buttons
+
+    const buttonFolders = fs.readdirSync('./Buttons/');
+
+    buttonFolders.forEach(direct => {
+        const buttonFiles = fs.readdirSync(`./Buttons/`).filter(file => file.endsWith('.js'));
+        for (const file of buttonFiles) {
+            const Button = require(`./Buttons/${file}`);
+            client.buttons.set(Button.customId, Button);
+        }
+    })
+
+
 
     //Load the commands
     let folders = await readdir("./Commands/");

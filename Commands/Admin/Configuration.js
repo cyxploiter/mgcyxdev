@@ -10,7 +10,7 @@ module.exports = {
     //Settings for command
     nsfw: false,
     ownerOnly: false,
-    cooldown: 5000,
+    cooldown: 0,
 
     // Execute contains content for the command
     async execute(client, message, args, data) {

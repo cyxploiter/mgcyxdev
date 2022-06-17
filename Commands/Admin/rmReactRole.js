@@ -12,7 +12,7 @@ module.exports = {
     //Settings for command
     nsfw: false,
     ownerOnly: false,
-    cooldown: 5000,
+    cooldown: 0,
 
     /**
      * @param {Discord.Client} client

@@ -1,5 +1,6 @@
 const client = require("../../cyx");
 const Discord = require("discord.js");
+const moment = require("moment");
 
 const InvitesTracker = require('@androz2091/discord-invites-tracker');
 const tracker = InvitesTracker.init(client, {
@@ -24,7 +25,7 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
         if (type == 'normal') {
             logEmbed.addFields({
                 name: `${member.user.tag} joined the server.`,
-                value: `User ID: ${member.user.id} | Registered At: ${member.user.createdAt}`,
+                value: `User ID: ${member.user.id} | Registered At: ${moment(member.user.createdAt)}`,
 
             }, {
                 name: `Invite`,
@@ -38,7 +39,7 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
             const vanity = (await (member.guild.fetchVanityData()));
             logEmbed.addFields({
                 name: `${member.user.tag} joined using vanity.`,
-                value: `User ID: ${member.user.id} | Registered At: ${member.user.createdAt}`,
+                value: `User ID: ${member.user.id} | Registered At: ${moment(member.user.createdAt)}`,
             }, {
                 name: `Vanity`,
                 value: `Vanity code: ${vanity.code} | Vanity Uses: ${vanity.uses}`,
@@ -49,7 +50,7 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
         } else if (type == 'unknown') {
             logEmbed.addFields({
                 name: `${member.user.tag} joined but couldn't find how.`,
-                value: `User ID: ${member.user.id} | Registered At: ${member.user.createdAt}`,
+                value: `User ID: ${member.user.id} | Registered At: ${moment(member.user.createdAt)}`,
                 inline: true
             });
 

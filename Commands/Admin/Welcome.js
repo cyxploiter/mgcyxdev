@@ -2,17 +2,17 @@ const Discord = require("discord.js");
 
 module.exports = {
     name: "welcome",
-    usage: ["When a user joins the server, send message to channel.", "Set channel for the welcome message```{prefix}welcome set #channel```", "Set up a custom welcome message```{prefix}welcome custom <text>```", "Disable the welcome message```{prefix}welcome disable```", "Disable the welcome message```{prefix}welcome disable```", "Test the welcome message```{prefix}welcome test```", "Available variables: ```{user.ping} - @KSJaay#2487\n{user.name} - KSJaay\n{user.id} - 249955383001481216\n{user.tag} - KSJaay#2487\n{guild.name} - AlitaBot\n{guild.id} - 597797831478214696\n{guild.totalUser} - 123```"],
+    usage: ["When a user joins the server, send message to channel.", "Set channel for the welcome message```{prefix}welcome set #channel```", "Set up a custom welcome message```{prefix}welcome custom <text>```", "Disable the welcome message```{prefix}welcome disable```", "Disable the welcome message```{prefix}welcome disable```", "Test the welcome message```{prefix}welcome test```", "Get all the variables```{prefix}welcome variables```"],
     enabled: true,
-    hidden: true,
-    aliases: [],
-    category: "",
-    memberPermissions: [],
+    hidden: false,
+    aliases: ["welc"],
+    category: "Admin",
+    memberPermissions: ["ADMINISTRATOR"],
     botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
     //Settings for command
     nsfw: false,
     ownerOnly: false,
-    cooldown: 5000,
+    cooldown: 0,
 
     /**
      * @param {Discord.Client} client
@@ -26,6 +26,30 @@ module.exports = {
             // If no arguments then return usage error
             if (!args[0]) {
                 return client.embed.usage(message, data);
+            };
+
+            const subCommands = ["set", "custom", "disable", "test", "variables", "vars"];
+            if (!subCommands.includes(args[0].toLowerCase())) {
+                console.log(args)
+                return client.embed.usage(message, data);
+            };
+
+            if (args[0] === "variables" || args[0] === "vars") {
+                return client.embed.send(message, {
+                    title: "Welcome Variables",
+                    description: "```\n" +
+                        "{user.ping} - Ping the user that joined the server\n" +
+                        "{user.name} - Name of joined user\n" +
+                        "{user.id} - ID of joined user\n" +
+                        "{user.tag} - Tag of joined user\n" +
+                        "{guild.name} - Name of the server\n" +
+                        "{guild.id} - ID of the server\n" +
+                        "{guild.totalUser} - Amount of members in the server\n" +
+                        "```",
+                    footer: {
+                        text: `All variables are case sensitive.`
+                    }
+                })
             };
 
             // If addon for welcome is missing create it
@@ -57,7 +81,7 @@ module.exports = {
             if (args[0].toLowerCase() === "test") {
                 // If welcome messages are disabled or channel isn't set return error
                 if (!data.guild.addons.welcome.enabled || data.guild.addons.welcome.channel.trim() === "") {
-                    return message.channel.send('Welcome messages are currently disabled.')
+                    return message.reply('Welcome messages are currently disabled.')
                 }
 
                 // Find the channel
@@ -118,6 +142,11 @@ module.exports = {
                     description: `Welcome message has been set to: \`${msg}\``
                 });
             };
+
+
+
+
+
 
             // None of the requirements were met so return usage error
             return client.embed.usage(message, data);

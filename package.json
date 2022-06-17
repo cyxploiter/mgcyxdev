@@ -18,15 +18,19 @@
     "chalk": "^4.1.1",
     "chart.js": "^2.9.4",
     "chartjs-node-canvas": "^3.2.0",
+    "discord-tictactoe": "^3.0.0",
     "discord.js": "^13.1.0",
     "discordjs-activity": "^1.4.2",
+    "images-scraper": "^6.4.0",
+    "keyv": "^4.3.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "mongoose": "^5.12.12",
     "node-fetch": "^2.6.7",
     "nodemon": "^2.0.15",
     "random-puppy": "^1.1.0",
-    "tiktok-scraper": "^1.4.36"
+    "tiktok-scraper": "^1.4.36",
+    "urban-dictionary": "^3.0.2"
   },
   "author": "Cyx#1337"
 }

@@ -1,29 +1,29 @@
+const Discord = require("discord.js");
+
 module.exports = {
-    name: "setprefix",
-    usage: ["Set the prefix for your server```{prefix}setprefix <prefix>```"],
+    name: "simleave",
+    usage: ["simulate a guild member leave"],
     enabled: true,
-    hidden: false,
-    aliases: ["prefix"],
-    category: "Admin",
-    memberPermissions: ["ADMINISTRATOR"],
+    hidden: true,
+    aliases: [],
+    category: "",
+    memberPermissions: [],
     botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
     //Settings for command
     nsfw: false,
     ownerOnly: false,
-    cooldown: 0,
+    cooldown: 5000,
+
+    /**
+     * @param {Discord.Client} client
+     * @param {Discord.Message} message
+     * @param {String[]} args
+     */
 
     // Execute contains content for the command
     async execute(client, message, args, data) {
         try {
-
-            if (!args[0]) {
-                return client.embed.usage(message, data);
-            }
-            let prefix = args.join(" ");
-            data.guild.prefix = prefix;
-            await data.guild.save();
-            message.guild.prefix = prefix.toLowerCase();
-            return message.channel.send(`Prefix has been updated to \`${prefix}\``);
+            client.emit('guildMemberRemove', message.member);
 
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
