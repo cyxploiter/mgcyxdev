@@ -25,7 +25,7 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
         if (type == 'normal') {
             logEmbed.addFields({
                 name: `${member.user.tag} joined the server.`,
-                value: `User ID: ${member.user.id} | Registered At: ${moment(member.user.createdAt)}`,
+                value: `User ID: ${member.user.id} | Registered At: ${moment(member.user.createdAt).format("MMMM Do YYYY, HH:mm:ss")} | ${moment(member.user.createdAt).startOf("day").fromNow()}`,
 
             }, {
                 name: `Invite`,
@@ -39,7 +39,7 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
             const vanity = (await (member.guild.fetchVanityData()));
             logEmbed.addFields({
                 name: `${member.user.tag} joined using vanity.`,
-                value: `User ID: ${member.user.id} | Registered At: ${moment(member.user.createdAt)}`,
+                value: `User ID: ${member.user.id} | Registered At: ${moment(member.user.createdAt).format("MMMM Do YYYY, HH:mm:ss")} | ${moment(member.user.createdAt).startOf("day").fromNow()}`,
             }, {
                 name: `Vanity`,
                 value: `Vanity code: ${vanity.code} | Vanity Uses: ${vanity.uses}`,
@@ -50,7 +50,7 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
         } else if (type == 'unknown') {
             logEmbed.addFields({
                 name: `${member.user.tag} joined but couldn't find how.`,
-                value: `User ID: ${member.user.id} | Registered At: ${moment(member.user.createdAt)}`,
+                value: `User ID: ${member.user.id} | Registered At: ${moment(member.user.createdAt).format("MMMM Do YYYY, HH:mm:ss")} | ${moment(member.user.createdAt).startOf("day").fromNow()}`,
                 inline: true
             });
 

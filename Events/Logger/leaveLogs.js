@@ -10,7 +10,7 @@ client.on("guildMemberRemove", async member => {
         let logsChannel = await client.tools.resolveChannel(guildData.addons.invitelogger.channel, guild);
         const roles = member.roles.cache.map(r => r);
         const logEmbed = new Discord.MessageEmbed()
-            .setColor(client.config.color)
+            .setColor("DARK_RED")
             .setTimestamp()
             .setThumbnail(member.user.displayAvatarURL({
                 dynamic: true
