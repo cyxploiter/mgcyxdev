@@ -1,8 +1,8 @@
 const Discord = require("discord.js");
 
 module.exports = {
-    name: "steal",
-    usage: ["Adds a specified emoji to the server", "```{prefix}steal <emote>```or```{prefix}steal link <emoteUrl>```"],
+    name: "emoji",
+    usage: ["Adds a specified emoji to the server", "```{prefix}emoji <emote>```or```{prefix}emoji link <emoteUrl>```"],
     enabled: true,
     hidden: false,
     aliases: [],
