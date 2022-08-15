@@ -6,6 +6,8 @@ client.on("messageCreate", async (message) => {
     if (message.guild.id != "1008658326080475176") return;
     if (message.author.bot) return;
 
+    message.delete();
+
     const videoMeta = await TikTokScraper.getVideoMeta(message.content);
     const viduri = videoMeta.collector[0].videoUrl;
 
