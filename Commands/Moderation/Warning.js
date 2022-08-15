@@ -136,6 +136,18 @@ module.exports = {
                     data.save()
                 });
 
+                await user.send({
+                    embeds: [{
+                        title: `You have been warned!`,
+                        description: `You have been warned in ${message.guild.name} for: ${reason}`,
+                        color: "RED",
+                        timestamp: new Date(),
+                        footer: {
+                            text: `Warned by ${message.author.tag}`
+                        }
+                    }]
+                });
+
 
                 return client.embed.send(message, {
                     title: `Warned! ${user.tag}`,
