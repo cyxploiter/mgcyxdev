@@ -1,5 +1,7 @@
 const Discord = require("discord.js");
 const urban = require("urban-dictionary");
+const resultMap = require('../../Maps/urbanResMap');
+
 
 module.exports = {
     name: "urban",
@@ -13,7 +15,7 @@ module.exports = {
     //Settings for command
     nsfw: false,
     ownerOnly: false,
-    cooldown: 10000,
+    cooldown: 0,
 
     /**
      * @param {Discord.Client} client
@@ -35,7 +37,7 @@ module.exports = {
 
             let word = args.join(" ");
 
-            urban.define(word, function (error, entries, tags, sounds) {
+            urban.define(word, async (error, entries, tags, sounds) => {
                 if (error) {
                     return client.embed.send(message, {
                         description: `An error occured while searching for the word.`,
@@ -52,18 +54,53 @@ module.exports = {
                     });
                 }
 
-                let word = entries[0].word;
+                let search = entries[0].word;
 
-                let embed = new Discord.MessageEmbed()
+                let word = (() => {
+                    return search.trim().replace(/\s/g, '%20');
+                })();
+
+                const Button = new Discord.MessageActionRow()
+                    .addComponents(
+                        new Discord.MessageButton()
+                        .setLabel("Next")
+                        .setEmoji("⏩")
+                        .setStyle("SECONDARY")
+                        .setCustomId("urbanNext")
+                    );
+                const searchResultSize = entries.length;
+                let Embed = new Discord.MessageEmbed()
                     .setTitle(`${entries[0].word} Urban Dictionary`)
                     .setColor(`WHITE`)
-                    .setURL(`https://www.urbandictionary.com/define.php?term=${word}`)
+                    .setURL(`${entries[0].permalink}`)
                     .setDescription(`**${entries[0].word}**\n\n${entries[0].definition}`)
-                    .addField(`Example`, `${entries[0].example}`)
-                    .addField(`Author`, `${entries[0].author}`)
-                    .addField(`Rating`, `${entries[0].thumbs_up} :thumbsup: | ${entries[0].thumbs_down} :thumbsdown:`);
+                    .addFields({
+                        name: `Example`,
+                        value: `${entries[0].example}`
+                    }, {
+                        name: `Author`,
+                        value: `${entries[0].author}`
+                    }, {
+                        name: `Rating`,
+                        value: `${entries[0].thumbs_up} :thumbsup: | ${entries[0].thumbs_down} :thumbsdown:`
+                    })
+                    .setFooter({
+                        text: `Page ${1} of ${searchResultSize}`
+                    });
 
-                return client.embed.send(message, embed);
+                const response = await message.reply({
+                    embeds: [Embed],
+                    components: [Button]
+                });
+
+                let map = new Map()
+
+                entries.forEach(Element => {
+                    let index = entries.indexOf(Element);
+                    map.set(index, Element)
+                });
+
+                return await resultMap.set(response.id, map);
             });
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
@@ -79,4 +116,4 @@ module.exports = {
             });
         }
     }
-}
+};

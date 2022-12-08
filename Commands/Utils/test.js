@@ -18,18 +18,15 @@ module.exports = {
     /**
      * @param {Discord.Client} client
      * @param {Discord.Message} message
+     * @param {Discord.Interaction} interaction
      * @param {String[]} args
      */
 
     // Execute contains content for the command
-    async execute(client, message, args, data) {
+    async execute(client, interaction, message, args, data) {
         try {
-            message.author.send({
-                content: `https://discord.gg/YCjR7REv4w`,
-                components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setURL("https://discord.gg/YCjR7REv4w").setLabel("Pls consider joining box").setStyle("LINK"), new Discord.MessageButton().setLabel(`Sent from ${message.guild.name}`).setStyle("SECONDARY").setCustomId("sentFrom").setDisabled(true))]
-            }).catch(err => {
-                console.log(err)
-            });
+
+
 
         } catch (err) {
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
