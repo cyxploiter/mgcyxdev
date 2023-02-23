@@ -9,7 +9,7 @@ module.exports = {
     hidden: true,
     aliases: [],
     category: "",
-    memberPermissions: [],
+    memberPermissions: ["ADMINISTRATOR"],
     botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],
     //Settings for command
     nsfw: false,
