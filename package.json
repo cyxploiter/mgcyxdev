@@ -8,8 +8,8 @@
     "npm": "7.x"
   },
   "scripts": {
-    "preinstall": "npm install pm2 -g --port 8000",
-    "dev": "pm2 start cyx.js --watch --port 8000"
+    "preinstall": "npm install pm2 -g",
+    "dev": "pm2 start cyx.js --watch"
   },
   "dependencies": {
     "@androz2091/discord-invites-tracker": "^1.1.0",
@@ -22,6 +22,7 @@
     "discord.js": "^13.1.0",
     "discordjs-activity": "^1.4.2",
     "download-chromium": "^2.2.1",
+    "express": "^4.18.2",
     "images-scraper": "^6.4.0",
     "insta-reel": "^2.0.1",
     "keyv": "^4.3.0",
